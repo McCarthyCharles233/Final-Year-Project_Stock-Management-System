@@ -1,1 +1,1 @@
-# Final-Year-Project_Stock-Management-System
+# Stock Management System For Accra Technical University Clinic
