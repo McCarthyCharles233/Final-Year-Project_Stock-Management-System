@@ -17,11 +17,11 @@ const Sidebar = () => {
   };
 
   return (
-    <div style={{backgroundColor: '#1E497D'}} className=" w-72 h-full h-screen bg-blue-900 text-white flex flex-col justify-between">
+    <div style={{backgroundColor: '#1E497D'}} className=" w-72 h-full bg-blue-900 text-white flex flex-col justify-between">
       <div>
-        <div style={{backgroundColor: '#1D242E'}} className="flex items-center justify-start p-3 top-0 sticky">
-          <img src={logo} alt="Logo" className=" w-10 h-10" />
-          <div className="ml-2 text-l font-semibold">ATU CLINIC PHARMA</div>
+        <div style={{backgroundColor: '#1D242E'}}  className="absolute w-72 top-0 flex items-center justify-center p-2">
+            <img src={logo} alt="Logo" className="w-10 h-10 mr-3" />
+            <h1 className="text-lg font-bold text-white">ATU CLINIC PHARMA</h1>
         </div>
         <div className="flex items-center px-4 py-6">
           <img src={logo} alt="Profile" className=" w-10 h-10" />
