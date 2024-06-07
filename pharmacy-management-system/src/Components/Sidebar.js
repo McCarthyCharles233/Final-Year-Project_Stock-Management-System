@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
 import { FaUser, FaSignOutAlt, FaHome, FaClipboardList, FaChartBar, FaCog, FaEnvelope, FaBell, FaCommentDots, FaWrench, FaVirus, FaQuestionCircle, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import logo from './img/logo.png';
+import Dashboard from './Dashboard';
+import { NavLink } from 'react-router-dom';
+import Login from './Login';
 
 const Sidebar = () => {
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [reportsOpen, setReportsOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('');
-
-  const handleLinkClick = (link) => {
-    setActiveLink(link);
-  };
-
-  const getLinkClass = (link) => {
-    return activeLink === link ? 'bg-yellow-500 text-white' : 'hover:bg-yellow-500 hover:text-white';
-  };
 
   return (
     <div style={{backgroundColor: '#1E497D'}} className=" w-72 h-full bg-blue-900 text-white flex flex-col justify-between">
       <div>
-        <div style={{backgroundColor: '#1D242E'}}  className="absolute w-72 top-0 flex items-center justify-center p-2">
+        <div style={{backgroundColor: '#1D242E'}}  className=" w-72 flex items-center justify-center p-2">
             <img src={logo} alt="Logo" className="w-10 h-10 mr-3" />
             <h1 className="text-lg font-bold text-white">ATU CLINIC PHARMA</h1>
         </div>
@@ -32,10 +26,10 @@ const Sidebar = () => {
         </div>
         <div className=" pr-2">
           <nav className="flex flex-col">
-            <a href="#" className="flex items-center space-x-3 py-3 p-5">
+            <NavLink to='/admin/dashboard' className="flex items-center space-x-3 py-3 p-5">
               <FaHome />
               <span>Dashboard</span>
-            </a>
+            </NavLink>
             <div>
               <div
                 className="flex items-center justify-between py-3 cursor-pointer"
@@ -49,7 +43,7 @@ const Sidebar = () => {
               </div>
               {inventoryOpen && (
                 <div style={{backgroundColor: '#1D242E'}} className="flex flex-col space-y-2 pl-8">
-                  <a href="#" className="py-3 px-5">Liist of Medicines</a>
+                  <a href="#" className="py-3 px-5">List of Medicines</a>
                   <a href="#" className="py-3 px-5">Medicine Groups</a>
                 </div>
               )}
@@ -119,10 +113,10 @@ const Sidebar = () => {
           <FaUser />
           <span>My Profile</span>
         </a>
-        <a href="#" className="flex items-center space-x-3 py-3 p-5">
+        <NavLink to='/login' className="flex items-center space-x-3 py-3 p-5">
           <FaSignOutAlt />
           <span>Logout</span>
-        </a>
+        </NavLink>
       </div>
     </div>
   );

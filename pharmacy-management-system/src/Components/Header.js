@@ -4,7 +4,7 @@ import logo from './img/logo.png';
 
 const Navbar = () => {
     return (
-        <div className=" shadow-sm flex items-center justify-between p-2 space-x-12 ml-72 top-0 sticky">
+        <div className=" shadow-sm flex items-center justify-between p-2 space-x-12 ml-72">
           <div style={{backgroundColor: '#FFFFFF'}} className="flex items-center flex-1 justify-between ml-4">
             <div className="relative flex-1 max-w-xs">
               <input style={{backgroundColor: '#E3EBF3'}}
