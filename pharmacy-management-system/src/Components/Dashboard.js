@@ -40,7 +40,7 @@ const Dashboard = () => {
             <div className="bg-white shadow-sm rounded-lg flex flex-col border-2">
                 <div className='flex justify-between border-b-2 p-1 px-5'>
                     <h3 className="text-lg font-semibold">Inventory</h3>
-                    <a >Go to Configuration</a>
+                    <a href='#'>Go to Configuration</a>
                 </div>
                 <div className='flex justify-between p-4'>
                     <div className='p-2'>
@@ -56,7 +56,20 @@ const Dashboard = () => {
             <div className="bg-white shadow-sm rounded-lg flex flex-col border-2">
                 <div className='flex justify-between border-b-2 p-1 px-5'>
                     <h3 className="text-lg font-semibold">Reports</h3>
-                    <a className="">May 2024</a>
+                    <select>
+                        <option>Jan 2024</option>
+                        <option>Feb 2024</option>
+                        <option>March 2024</option>
+                        <option>April 2024</option>
+                        <option>May 2024</option>
+                        <option>June 2024</option>
+                        <option>July 2024</option>
+                        <option>Aug 2024</option>
+                        <option>Sep 2024</option>
+                        <option>Oct 2024</option>
+                        <option>Nov 2024</option>
+                        <option>Dec 2024</option>
+                    </select>
                 </div>
                 <div className='flex justify-between p-4'>
                     <div className='p-2'>
@@ -72,7 +85,7 @@ const Dashboard = () => {
             <div className="bg-white shadow-sm rounded-lg flex flex-col border-2">
                 <div className='flex justify-between border-b-2 p-1 px-5'>
                     <h3 className="text-lg font-semibold">My Pharmacy</h3>
-                    <a className="">Go to User Management</a>
+                    <a href='#' className="">Go to User Management</a>
                 </div>
                 <div className='flex justify-between p-4'>
                     <div className='p-2'>
@@ -88,7 +101,7 @@ const Dashboard = () => {
             <div className="bg-white shadow-sm rounded-lg flex flex-col border-2">
                 <div className='flex justify-between border-b-2 p-1 px-5'>
                     <h3 className="text-lg font-semibold">Customers</h3>
-                    <a className="">Go to Customers Page </a>
+                    <a href='#' className="">Go to Customers Page </a>
                 </div>
                 <div className='flex justify-between p-4'>
                     <div className='p-2'>
