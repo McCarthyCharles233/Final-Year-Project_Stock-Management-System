@@ -37,13 +37,17 @@ const Sidebar = () => {
               >
                 <div className="flex items-center space-x-3 py-0 p-5">
                   <FaClipboardList />
-                  <span>Inventory</span>
+                  <NavLink to='/admin/inventory'>
+                    <span>Inventory</span>
+                  </NavLink> 
                 </div>
                 {inventoryOpen ? <FaChevronUp/> : <FaChevronDown />}
               </div>
               {inventoryOpen && (
                 <div style={{backgroundColor: '#1D242E'}} className="flex flex-col space-y-2 pl-8">
-                  <a href="#" className="py-3 px-5">List of Medicines</a>
+                  <NavLink className="py-3 px-5" to='/admin/medicinelist'>
+                    <span>List of Medicines</span>
+                  </NavLink>
                   <a href="#" className="py-3 px-5">Medicine Groups</a>
                 </div>
               )}

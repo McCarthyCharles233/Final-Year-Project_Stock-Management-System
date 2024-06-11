@@ -25,7 +25,7 @@ const Navbar = () => {
                 type="text"
                 className="border rounded-sm py-2 px-4 pl-10 w-full text-black"
                 placeholder="Search for anything here..."
-              /><FaSearch className="absolute top-2.5 right-5 text-gray-500" />
+              /><FaSearch className="absolute top-2.5 right-5 text-gray-700" />
             </div>
             <div className="flex items-center">
               <span className="text-sm text-gray-500 ml-4">{formattedTime}</span>
