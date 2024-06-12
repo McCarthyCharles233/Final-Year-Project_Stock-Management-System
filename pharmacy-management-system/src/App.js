@@ -6,6 +6,7 @@ import Dashboard from './Components/Dashboard';
 import Inventory from './Components/Inventory';
 import MedicineList from './Components/MedicineList';
 import Reports from './Components/Reports';
+import MedicineDetails from './Components/MedicineDetails';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='Inventory' element={<Inventory />} />
           <Route path='MedicineList' element={<MedicineList />} />
           <Route path='reports' element={<Reports />} />
+          <Route path='medicinedetails' element={<MedicineDetails />} />
         </Route>
         <Route path="/" element={<Login />} />
       </Routes>

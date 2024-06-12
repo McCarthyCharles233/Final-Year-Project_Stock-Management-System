@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaPlus, FaSearch } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 const MedicineList = () => {
   return (
@@ -46,7 +47,9 @@ const MedicineList = () => {
               <td className="py-2 px-5 border-b">Generic Medicine</td>
               <td className="py-2 px-5 border-b">350</td>
               <td className="py-2 px-5 border-b">
-                <button className="text-blue-500">View Full Detail</button>
+                <NavLink to='/admin/medicinedetails'>
+                    <button className="text-blue-500">View Full Detail</button>
+                </NavLink>
               </td>
             </tr>
             {/* Repeat similar <tr> blocks for each medicine */}
