@@ -28,14 +28,14 @@ const MedicineList = () => {
         </select>
       </div>
       <div className="overflow-y-auto mt-5">
-        <table className=" w-full pl-5 bg-white">
+        <table className=" w-full pl-5 bg-white border-2 border-gray-300">
           <thead>
             <tr className='text-left'>
-              <th className="py-2 px-5 border-b">Medicine Name</th>
-              <th className="py-2 px-5 border-b">Medicine ID</th>
-              <th className="py-2 px-5 border-b">Group Name</th>
-              <th className="py-2 px-5 border-b">Quantity</th>
-              <th className="py-2 px-5 border-b">Action</th>
+              <th className="py-2 px-5 border-b-2">Medicine Name</th>
+              <th className="py-2 px-5 border-b-2">Medicine ID</th>
+              <th className="py-2 px-5 border-b-2">Group Name</th>
+              <th className="py-2 px-5 border-b-2">Quantity</th>
+              <th className="py-2 px-5 border-b-2">Action</th>
             </tr>
           </thead>
           <tbody>

@@ -59,14 +59,17 @@ const Sidebar = () => {
               >
                 <div className="flex items-center space-x-3 py-0 p-5">
                   <FaChartBar />
-                  <span>Reports</span>
+                  <NavLink to='/admin/reports'>
+                    <span>Reports</span>
+                  </NavLink>
+                  
                 </div>
                 {reportsOpen ? <FaChevronUp /> : <FaChevronDown />}
               </div>
               {reportsOpen && (
                 <div style={{backgroundColor: '#1D242E'}} className="flex flex-col space-y-2 pl-8">
-                  <a href="#" className="py-3 px-5">Sub-item 1</a>
-                  <a href="#" className="py-3 px-5">Sub-item 2</a>
+                  <a href="#" className="py-3 px-5">Sales Report</a>
+                  <a href="#" className="py-3 px-5">Payment Report</a>
                 </div>
               )}
             </div>

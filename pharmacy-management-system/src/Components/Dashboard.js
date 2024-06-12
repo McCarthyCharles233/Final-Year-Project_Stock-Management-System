@@ -15,7 +15,7 @@ const Dashboard = () => {
               <FaFileAlt className="text-4xl text-green-500 mt-4" />
               <h3 className="text-lg font-semibold mt-2">Good</h3>
               <p className=''>Inventory Status</p>
-              <a className=" bg-green-100 text-green-700 w-full text-center mt-2 p-1 border-t-2 border-green-500">View Detailed Report ››</a>
+              <a href='#' className=" bg-green-100 text-green-700 w-full text-center mt-2 p-1 border-t-2 border-green-500">View Detailed Report ››</a>
             </div>
             <div className="bg-white shadow-sm rounded-sm flex flex-col items-center h-max border-2 border-yellow-500">
               <FaDollarSign className="text-4xl text-yellow-500 mt-4" />
