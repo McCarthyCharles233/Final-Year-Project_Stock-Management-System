@@ -7,6 +7,7 @@ import Inventory from './Components/Inventory';
 import MedicineList from './Components/MedicineList';
 import Reports from './Components/Reports';
 import MedicineDetails from './Components/MedicineDetails';
+import AddNewDrug from './Components/AddNewDrug';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='MedicineList' element={<MedicineList />} />
           <Route path='reports' element={<Reports />} />
           <Route path='medicinedetails' element={<MedicineDetails />} />
+          <Route path='addnewitem' element={<AddNewDrug />} />
         </Route>
         <Route path="/" element={<Login />} />
       </Routes>

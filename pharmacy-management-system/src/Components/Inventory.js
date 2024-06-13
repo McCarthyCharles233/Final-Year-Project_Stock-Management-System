@@ -11,7 +11,11 @@ const Inventory = () => {
                     <p>List of medicines available for sales</p>
                 </div>
                 <div>
-                    <button style={{backgroundColor: '#EDC268', color: '#FFFFFF'}} className="flex border p-3 rounded-md shadow-md"><FaPlus className="text-white px-1 mt-1" />Add new item</button>
+                    <NavLink to='/admin/addnewitem'>
+                        <button style={{backgroundColor: '#EDC268', color: '#FFFFFF'}} className="flex border p-3 rounded-md shadow-md"><FaPlus className="text-white px-1 mt-1" />
+                            Add new item
+                        </button>
+                    </NavLink>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">

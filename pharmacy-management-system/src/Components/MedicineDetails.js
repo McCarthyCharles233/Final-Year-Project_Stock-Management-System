@@ -18,7 +18,7 @@ const MedicineDetails = () => {
                 <input style={{backgroundColor: '#E3EBF3'}}
                     type="text"
                     className="border rounded-sm py-2 px-4 pl-10 w-full text-black"
-                    placeholder="Search Medicine Inventory..."
+                    placeholder="Search in Medicine Details"
                 /><FaSearch className="absolute top-2.5 right-5 text-gray-700" />
                 </div>
             </div>

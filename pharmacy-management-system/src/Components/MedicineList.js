@@ -10,9 +10,11 @@ const MedicineList = () => {
             <h1 style={{fontSize: 24}} className=" font-bold"> <span className='text-gray-500'>Inventory</span><span> › List of Medicines</span> </h1>
             <p>List of medicines available for sales</p>
         </div>
-        <button style={{backgroundColor: '#EDC268', color: '#FFFFFF'}} className="flex border p-3 rounded-md shadow-md"><FaPlus className="text-white px-1 mt-1" />
-            Add new item
-        </button>
+        <NavLink to='/admin/addnewitem'>
+            <button style={{backgroundColor: '#EDC268', color: '#FFFFFF'}} className="flex border p-3 rounded-md shadow-md"><FaPlus className="text-white px-1 mt-1" />
+                Add new item
+            </button>
+        </NavLink>
       </div>
       <div className="flex justify-between mt-5">
         <div className="relative flex-1 max-w-xs">
