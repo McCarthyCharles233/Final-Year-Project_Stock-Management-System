@@ -8,6 +8,7 @@ import MedicineList from './Components/MedicineList';
 import Reports from './Components/Reports';
 import MedicineDetails from './Components/MedicineDetails';
 import AddNewDrug from './Components/AddNewDrug';
+import MedicineGroup from './Components/MedicineGroup';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='reports' element={<Reports />} />
           <Route path='medicinedetails' element={<MedicineDetails />} />
           <Route path='addnewitem' element={<AddNewDrug />} />
+          <Route path='medicinegroup' element={<MedicineGroup />} />
         </Route>
         <Route path="/" element={<Login />} />
       </Routes>

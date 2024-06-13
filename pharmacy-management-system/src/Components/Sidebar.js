@@ -48,7 +48,9 @@ const Sidebar = () => {
                   <NavLink className="py-3 px-5" to='/admin/medicinelist'>
                     <span>List of Medicines</span>
                   </NavLink>
-                  <a href="#" className="py-3 px-5">Medicine Groups</a>
+                  <NavLink className="py-3 px-5" to='/admin/medicinegroup'>
+                    <span href="#">Medicine Groups</span>
+                  </NavLink>
                 </div>
               )}
             </div>

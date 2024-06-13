@@ -42,7 +42,6 @@ const MedicineList = () => {
             </tr>
           </thead>
           <tbody>
-            {/* Replace the below rows with your actual data */}
             <tr>
               <td className="py-2 px-5 border-b">Augmentin 625 Duo Tablet</td>
               <td className="py-2 px-5 border-b">D06ID232435454</td>
