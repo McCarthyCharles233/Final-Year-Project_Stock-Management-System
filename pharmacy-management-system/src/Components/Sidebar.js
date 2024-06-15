@@ -102,10 +102,10 @@ const Sidebar = () => {
               <span>Chat with Visitors</span>
             </a>
             <hr className='text-white my-6'></hr>
-            <a href="#" className="flex items-center space-x-3 py-3 p-5">
-              <FaCog />
-              <span>Application Settings</span>
-            </a>
+            <NavLink className="flex items-center space-x-3 py-3 p-5" to='/admin/appsettings'>
+                <FaCog />
+                <span>Application Settings</span>
+            </NavLink>
             <a href="#" className="flex items-center space-x-3 py-3 p-5">
               <FaVirus />
               <span>Covid-19</span>

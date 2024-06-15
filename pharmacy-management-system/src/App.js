@@ -9,6 +9,8 @@ import Reports from './Components/Reports';
 import MedicineDetails from './Components/MedicineDetails';
 import AddNewDrug from './Components/AddNewDrug';
 import MedicineGroup from './Components/MedicineGroup';
+import AppSettings from './Components/AppSettings';
+import UserList from './Components/UserList';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path='medicinedetails' element={<MedicineDetails />} />
           <Route path='addnewitem' element={<AddNewDrug />} />
           <Route path='medicinegroup' element={<MedicineGroup />} />
+          <Route path='appsettings' element={<AppSettings />}/>
+          <Route path='users' element={<UserList />}/>
         </Route>
         <Route path="/" element={<Login />} />
       </Routes>
