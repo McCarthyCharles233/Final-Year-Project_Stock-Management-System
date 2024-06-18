@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const UserModal = ({ isVisible, onClose, onSubmit, user }) => {
+const AddUserModal = ({ isVisible, onClose, onSubmit, user }) => {
   const [name, setName] = useState('');
   const [role, setRole] = useState('');
   const [id, setId] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -14,12 +16,14 @@ const UserModal = ({ isVisible, onClose, onSubmit, user }) => {
       setId(user.id);
       setEmail(user.email);
       setPassword('');
+      setConfirmPassword('');
     } else {
       setName('');
       setRole('');
       setId('');
       setEmail('');
       setPassword('');
+      setConfirmPassword('');
     }
   }, [user]);
 
@@ -27,6 +31,15 @@ const UserModal = ({ isVisible, onClose, onSubmit, user }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setError('Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.');
+      return;
+    }
     const newUser = { name, role, id, email, password };
     onSubmit(newUser);
   };
@@ -48,13 +61,16 @@ const UserModal = ({ isVisible, onClose, onSubmit, user }) => {
           </div>
           <div className="mb-4">
             <label className="block text-gray-700">Role</label>
-            <input
-              type="text"
+            <select
               className="w-full border border-gray-300 rounded py-2 px-3"
               value={role}
               onChange={(e) => setRole(e.target.value)}
               required
-            />
+            >
+              <option value="" disabled>Select Role</option>
+              <option value="Pharmacist">Pharmacist</option>
+              <option value="Cashier">Cashier</option>
+            </select>
           </div>
           <div className="mb-4">
             <label className="block text-gray-700">ID</label>
@@ -86,6 +102,17 @@ const UserModal = ({ isVisible, onClose, onSubmit, user }) => {
               required={!user}
             />
           </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Confirm Password</label>
+            <input
+              type="password"
+              className="w-full border border-gray-300 rounded py-2 px-3"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required={!user}
+            />
+          </div>
+          {error && <div className="text-red-500 mb-4">{error}</div>}
           <div className="flex justify-end">
             <button
               type="button"
@@ -107,4 +134,4 @@ const UserModal = ({ isVisible, onClose, onSubmit, user }) => {
   );
 };
 
-export default UserModal;
+export default AddUserModal;

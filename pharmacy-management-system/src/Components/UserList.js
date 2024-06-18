@@ -1,39 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPlus, FaSearch } from 'react-icons/fa';
 import AddUserModal from './AddUserModal';
 import ManageUserModal from './ManageUserModal';
+import api from '../utils/api';
 
 const UserList = () => {
-  const [users, setUsers] = useState([
-    { name: 'John Doe', role: 'Pharmacist', id: '0001A', email: 'johndoe@example.com' }
-  ]);
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isManageModalOpen, setIsManageModalOpen] = useState(false);
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const [manageModalVisible, setManageModalVisible] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
-  const handleAddUser = () => {
-    setCurrentUser(null);
-    setModalVisible(true);
-  };
-
-  const handleManageUser = (user) => {
-    setCurrentUser(user);
-    setManageModalVisible(true);
-  };
-
-  const handleFormSubmit = (user) => {
-    if (currentUser) {
-      setUsers(users.map((u) => (u.id === user.id ? user : u)));
-    } else {
-      setUsers([...users, user]);
+  const fetchUsers = async () => {
+    try {
+      const res = await api.get('/users');
+      setUsers(res.data);
+    } catch (err) {
+      console.error(err);
     }
-    setModalVisible(false);
   };
 
-  const handleDeleteUser = (userId) => {
-    setUsers(users.filter((user) => user.id !== userId));
-    setManageModalVisible(false);
+  const handleAddUser = async (newUser) => {
+    try {
+      await api.post('/users', newUser);
+      fetchUsers();
+      setIsAddModalOpen(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleUpdateUser = async (updatedUser) => {
+    try {
+      await api.put(`/users/${updatedUser.id}`, updatedUser);
+      fetchUsers();
+      setIsManageModalOpen(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      await api.delete(`/users/${userId}`);
+      fetchUsers();
+      setIsManageModalOpen(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const openAddModal = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const closeAddModal = () => {
+    setIsAddModalOpen(false);
+  };
+
+  const openManageModal = (user) => {
+    setSelectedUser(user);
+    setIsManageModalOpen(true);
+  };
+
+  const closeManageModal = () => {
+    setIsManageModalOpen(false);
+    setSelectedUser(null);
   };
 
   return (
@@ -44,12 +79,12 @@ const UserList = () => {
             <span className="text-gray-500">Application Settings</span>
             <span> › List of Users</span>
           </h1>
-          <p>List of users available for management</p>
+          <p>List of users available</p>
         </div>
         <button
-          onClick={handleAddUser}
           style={{ backgroundColor: '#EDC268', color: '#FFFFFF' }}
           className="flex border p-3 rounded-md shadow-md"
+          onClick={openAddModal}
         >
           <FaPlus className="text-white px-1 mt-1" />
           Add New User
@@ -74,7 +109,7 @@ const UserList = () => {
               <th className="py-2 px-5 border-b-2">Role</th>
               <th className="py-2 px-5 border-b-2">ID</th>
               <th className="py-2 px-5 border-b-2">Email</th>
-              <th className="py-2 px-5 border-b-2">Actions</th>
+              <th className="py-2 px-5 border-b-2">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -85,9 +120,9 @@ const UserList = () => {
                 <td className="py-2 px-5 border-b">{user.id}</td>
                 <td className="py-2 px-5 border-b">{user.email}</td>
                 <td className="py-2 px-5 border-b">
-                  <button
-                    onClick={() => handleManageUser(user)}
-                    className="text-blue-500"
+                  <button 
+                    className="text-blue-500 hover:underline"
+                    onClick={() => openManageModal(user)}
                   >
                     Manage User
                   </button>
@@ -98,26 +133,29 @@ const UserList = () => {
         </table>
       </div>
       <div className="p-4 flex justify-between items-center">
-        <span>Showing 1 - {users.length} results of {users.length}</span>
+        <span>Showing {users.length} results</span>
         <div>
           <button className="p-2 border rounded-l">Previous</button>
           <button className="p-2 border-t border-b">Page 01</button>
           <button className="p-2 border rounded-r">Next</button>
         </div>
       </div>
-      <AddUserModal
-        isVisible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        onSubmit={handleFormSubmit}
-        user={currentUser}
-      />
-      <ManageUserModal
-        isVisible={manageModalVisible}
-        onClose={() => setManageModalVisible(false)}
-        onSubmit={handleFormSubmit}
-        onDelete={handleDeleteUser}
-        user={currentUser}
-      />
+      {isAddModalOpen && (
+        <AddUserModal
+          isVisible={isAddModalOpen}
+          onClose={closeAddModal}
+          onSubmit={handleAddUser}
+          user={null}
+        />
+      )}
+      {isManageModalOpen && (
+        <ManageUserModal
+          user={selectedUser}
+          onClose={closeManageModal}
+          onUpdate={handleUpdateUser}
+          onDelete={handleDeleteUser}
+        />
+      )}
     </div>
   );
 };

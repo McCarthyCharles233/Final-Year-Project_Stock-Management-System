@@ -1,75 +1,109 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const ManageUserModal = ({ isVisible, onClose, onSubmit, onDelete, user }) => {
-  const [email, setEmail] = useState('');
+const ManageUserModal = ({ user, onClose, onUpdate, onDelete }) => {
+  const [name, setName] = useState(user ? user.name : '');
+  const [email, setEmail] = useState(user ? user.email : '');
+  const [role, setRole] = useState(user ? user.role : '');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
     if (user) {
+      setName(user.name);
       setEmail(user.email);
-      setPassword('');
+      setRole(user.role);
     }
   }, [user]);
 
-  if (!isVisible) return null;
+  const handleUpdate = () => {
+    const updatedUser = {
+      id: user.id,
+      name,
+      email,
+      role,
+      password,
+    };
+    onUpdate(updatedUser);
+    onClose();
+  };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const updatedUser = { ...user, email, password };
-    onSubmit(updatedUser);
+  const handleDelete = () => {
+    onDelete(user.id);
+    onClose();
   };
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white rounded-lg p-8 w-1/3">
-        <h2 className="text-2xl mb-4">Manage User</h2>
-        <form onSubmit={handleFormSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
-            <input
-              type="email"
-              className="w-full border border-gray-300 rounded py-2 px-3"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Password</label>
-            <input
-              type="password"
-              className="w-full border border-gray-300 rounded py-2 px-3"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="flex justify-end">
+      <div className="bg-white p-5 rounded-md shadow-lg w-1/3">
+        <h2 className="text-xl font-bold mb-4">{user ? 'Manage User' : 'Add New User'}</h2>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Name</label>
+          <input
+            type="text"
+            className="border w-full p-2 mt-1"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Email</label>
+          <input
+            type="email"
+            className="border w-full p-2 mt-1"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Role</label>
+          <input
+            type="text"
+            className="border w-full p-2 mt-1"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Password</label>
+          <input
+            type="password"
+            className="border w-full p-2 mt-1"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="flex justify-end space-x-4">
+          {user && (
             <button
-              type="button"
-              onClick={() => onDelete(user.id)}
-              className="mr-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+              className="bg-red-500 text-white py-2 px-4 rounded"
+              onClick={handleDelete}
             >
-              Delete User
+              Delete
             </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="mr-4 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-            >
-              Save Changes
-            </button>
-          </div>
-        </form>
+          )}
+          <button
+            className="bg-gray-300 text-gray-800 py-2 px-4 rounded"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+          <button
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+            onClick={handleUpdate}
+          >
+            {user ? 'Update' : 'Add'}
+          </button>
+        </div>
       </div>
     </div>
   );
+};
+
+ManageUserModal.propTypes = {
+  user: PropTypes.object,
+  onClose: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default ManageUserModal;
