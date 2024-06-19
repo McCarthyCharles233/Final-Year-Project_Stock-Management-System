@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaUser, FaSignOutAlt, FaHome, FaClipboardList, FaChartBar, FaCog, FaEnvelope, FaBell, FaCommentDots, FaWrench, FaVirus, FaQuestionCircle, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import logo from './img/logo.png';
-import Dashboard from './Dashboard';
 import { NavLink } from 'react-router-dom';
-import Login from './Login';
+
 
 const Sidebar = () => {
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [reportsOpen, setReportsOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove the token
+    navigate('/login', { replace: true }); // Redirect to login page
+    window.location.reload(); // Reload the page
+  };
 
   return (
     <div style={{backgroundColor: '#1E497D'}} className=" w-72 h-full bg-blue-900 text-white flex flex-col justify-between">
@@ -122,10 +130,10 @@ const Sidebar = () => {
           <FaUser />
           <span>My Profile</span>
         </a>
-        <NavLink to='/login' className="flex items-center space-x-3 py-3 p-5">
+        <button onClick={handleLogout}  className="flex items-center space-x-3 py-3 p-5">
           <FaSignOutAlt />
           <span>Logout</span>
-        </NavLink>
+        </button>
       </div>
     </div>
   );

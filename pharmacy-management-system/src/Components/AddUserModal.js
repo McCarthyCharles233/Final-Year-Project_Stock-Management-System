@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 const AddUserModal = ({ isVisible, onClose, onSubmit, user }) => {
   const [name, setName] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('Pharmacist');
   const [id, setId] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -19,7 +19,7 @@ const AddUserModal = ({ isVisible, onClose, onSubmit, user }) => {
       setConfirmPassword('');
     } else {
       setName('');
-      setRole('');
+      setRole('Pharmacist');
       setId('');
       setEmail('');
       setPassword('');
@@ -32,16 +32,22 @@ const AddUserModal = ({ isVisible, onClose, onSubmit, user }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setPasswordError('Passwords do not match');
       return;
     }
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!passwordRegex.test(password)) {
-      setError('Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.');
+
+    if (!isValidPassword(password)) {
+      setPasswordError('Password must be at least 8 characters long and contain a number and a special character.');
       return;
     }
+
     const newUser = { name, role, id, email, password };
     onSubmit(newUser);
+  };
+
+  const isValidPassword = (password) => {
+    const regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+    return regex.test(password);
   };
 
   return (
@@ -67,7 +73,6 @@ const AddUserModal = ({ isVisible, onClose, onSubmit, user }) => {
               onChange={(e) => setRole(e.target.value)}
               required
             >
-              <option value="" disabled>Select Role</option>
               <option value="Pharmacist">Pharmacist</option>
               <option value="Cashier">Cashier</option>
             </select>
@@ -112,7 +117,9 @@ const AddUserModal = ({ isVisible, onClose, onSubmit, user }) => {
               required={!user}
             />
           </div>
-          {error && <div className="text-red-500 mb-4">{error}</div>}
+          {passwordError && (
+            <div className="mb-4 text-red-500">{passwordError}</div>
+          )}
           <div className="flex justify-end">
             <button
               type="button"
