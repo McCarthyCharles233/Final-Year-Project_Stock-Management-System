@@ -4,31 +4,27 @@ const User = require('../models/User');
 const express = require('express');
 const router = express.Router();
 
-const defaultAdmin = {
-  id: 'admin',
-  password: 'root',
-  role: 'admin'
-};
+const JWT_SECRET = '648ac5a32050a5ba855801bf7790d1826d496ab3ac57c85097fa578c05908b4f01db6e8f1ef31869c416da69e05d0cf3826859513e349e6336095853b3e3bdd4';
 
+// Login endpoint
 router.post('/login', async (req, res) => {
-  const { role, username, password } = req.body;
-
-  // Check if the default admin credentials are used
-  if (username === defaultAdmin.id && password === defaultAdmin.password && role === defaultAdmin.role) {
-    const token = jwt.sign({ id: defaultAdmin.id, role: defaultAdmin.role }, process.env.JWT_SECRET);
-    return res.json({ token });
-  }
+  const { username, password, role } = req.body;
 
   try {
-    // Check if the user exists in the database
-    const user = await User.findOne({ id: username });
-    if (user && await bcrypt.compare(password, user.password) && user.role === role) {
-      const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET);
-      return res.json({ token });
+    const user = await User.findOne({ username, role });
+    if (!user) {
+      return res.status(401).json({ message: 'Incorrect credentials' });
     }
-    res.status(401).json({ message: 'Invalid credentials' });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Incorrect credentials' });
+    }
+
+    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
