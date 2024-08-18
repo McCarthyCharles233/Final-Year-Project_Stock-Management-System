@@ -24,7 +24,6 @@ const UserList = () => {
   };
 
   const handleAddUser = async (newUser) => {
-    console.log("New User Data:", newUser);
     try {
       await api.post('/api/users', newUser);
       fetchUsers();

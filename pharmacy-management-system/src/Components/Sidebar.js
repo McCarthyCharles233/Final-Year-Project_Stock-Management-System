@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaSignOutAlt, FaHome, FaClipboardList, FaChartBar, FaCog, FaEnvelope, FaBell, FaCommentDots, FaWrench, FaVirus, FaQuestionCircle, FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import logo from './img/logo.png';
+/* import logo from './img/logo.png'; */
 import { NavLink } from 'react-router-dom';
 
 
@@ -22,11 +22,11 @@ const Sidebar = () => {
     <div style={{backgroundColor: '#1E497D'}} className=" w-72 h-full bg-blue-900 text-white flex flex-col justify-between">
       <div>
         <div style={{backgroundColor: '#1D242E'}}  className=" w-72 flex items-center justify-center p-2">
-            <img src={logo} alt="Logo" className="w-10 h-10 mr-3" />
-            <h1 className="text-lg font-bold text-white">ATU CLINIC PHARMA</h1>
+            {/* <img src={logo} alt="Logo" className="w-10 h-10 mr-3" /> */}
+            <h1 className="text-lg font-bold text-white">CLINIC PHARMA</h1>
         </div>
         <div className="flex items-center px-4 py-6">
-          <img src={logo} alt="Profile" className=" w-10 h-10" />
+          {/* <img src={logo} alt="Profile" className=" w-10 h-10" /> */}
           <div className="ml-3">
             <div className="text-lg font-semibold">Admin 1</div>
             <div className="text-sm text-gray-400">Super Admin</div>

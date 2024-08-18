@@ -9,7 +9,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const userRoutes = require('./routes/Users');
+const medicineRoutes = require('./routes/Medicines'); // Import medicine routes
 app.use('/api/users', userRoutes);
+app.use('/api/medicines', medicineRoutes); // Use medicine routes
 
 const PORT = process.env.PORT || 5000;
 const db = process.env.MONGO_URI;

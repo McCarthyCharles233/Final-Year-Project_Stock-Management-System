@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import login_bg from './img/login_bg.jpg';
-import logo from './img/logo.png';
+/* import logo from './img/logo.png'; */
 import lock from './img/lock.png';
 import user from './img/user.png';
 
@@ -40,9 +40,9 @@ const Login = () => {
   return (
     <div style={{ backgroundImage: `url(${login_bg})` }} className="flex justify-center items-center min-h-screen">
       <div className="p-10">
-        <div className="flex justify-center mb-6">
+        {/* <div className="flex justify-center mb-6">
           <img src={logo} alt="Logo" className="w-24 h-24" />
-        </div>
+        </div> */}
         <form onSubmit={handleLogin} className="space-y-4">
           <div style={{ width: '300px' }} className="relative">
             <img src={user} alt="User Icon" className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
