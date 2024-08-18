@@ -16,7 +16,7 @@ const UserList = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await api.get('/users');
+      const res = await api.get('/api/users');
       setUsers(res.data);
     } catch (err) {
       console.error(err);
@@ -24,8 +24,9 @@ const UserList = () => {
   };
 
   const handleAddUser = async (newUser) => {
+    console.log("New User Data:", newUser);
     try {
-      await api.post('/users', newUser);
+      await api.post('/api/users', newUser);
       fetchUsers();
       setIsAddModalOpen(false);
     } catch (err) {
@@ -35,7 +36,7 @@ const UserList = () => {
 
   const handleUpdateUser = async (updatedUser) => {
     try {
-      await api.put(`/users/${updatedUser.id}`, updatedUser);
+      await api.put(`/api/users/${updatedUser.id}`, updatedUser);
       fetchUsers();
       setIsManageModalOpen(false);
     } catch (err) {
@@ -45,7 +46,7 @@ const UserList = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      await api.delete(`/users/${userId}`);
+      await api.delete(`/api/users/${userId}`);
       fetchUsers();
       setIsManageModalOpen(false);
     } catch (err) {

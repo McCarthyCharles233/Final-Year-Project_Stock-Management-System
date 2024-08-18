@@ -42,6 +42,7 @@ const AddUserModal = ({ isVisible, onClose, onSubmit, user }) => {
     }
 
     const newUser = { name, role, id, email, password };
+    console.log(newUser)
     onSubmit(newUser);
   };
 

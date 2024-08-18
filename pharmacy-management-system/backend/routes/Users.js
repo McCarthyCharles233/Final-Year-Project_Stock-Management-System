@@ -29,6 +29,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+
 // Update user
 router.put('/:id', async (req, res) => {
   try {
