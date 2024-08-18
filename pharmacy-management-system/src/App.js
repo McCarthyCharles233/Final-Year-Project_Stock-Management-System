@@ -11,6 +11,7 @@ import AddNewDrug from './Components/AddNewDrug';
 import MedicineGroup from './Components/MedicineGroup';
 import AppSettings from './Components/AppSettings';
 import UserList from './Components/UserList';
+import Notifications from './Components/Notifications';
 /* import ProtectedRoute from './Components/ProtectedRoute'; */
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path='medicinegroup' element={<MedicineGroup />} />
           <Route path='appsettings' element={<AppSettings />}/>
           <Route path='users' element={<UserList />}/>
+          <Route path='notifications' element={<Notifications />}/>
         </Route>
         <Route path="/" element={<Login />} />
       </Routes>

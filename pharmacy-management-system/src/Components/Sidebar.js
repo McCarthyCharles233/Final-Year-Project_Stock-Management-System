@@ -101,10 +101,10 @@ const Sidebar = () => {
                 </div>
               )}
             </div>
-            <a href="#" className="flex items-center space-x-3 py-3 p-5">
+            <NavLink className="flex items-center space-x-3 py-3 p-5" to='/admin/notifications'>
               <FaBell />
               <span>Notifications</span>
-            </a>
+            </NavLink>
             <a href="#" className="flex items-center space-x-3 py-3 p-5">
               <FaCommentDots />
               <span>Chat with Visitors</span>

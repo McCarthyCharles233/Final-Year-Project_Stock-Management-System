@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFileAlt, FaDollarSign, FaPills, FaExclamationTriangle, FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import { FaFileAlt, FaDollarSign, FaPills, FaExclamationTriangle} from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 
 const Dashboard = () => {
