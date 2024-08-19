@@ -107,7 +107,7 @@ const Sidebar = () => {
             </NavLink>
             <a href="#" className="flex items-center space-x-3 py-3 p-5">
               <FaCommentDots />
-              <span>Chat with Visitors</span>
+              <span>Orders</span>
             </a>
             <hr className='text-white my-6'></hr>
             <NavLink className="flex items-center space-x-3 py-3 p-5" to='/admin/appsettings'>
