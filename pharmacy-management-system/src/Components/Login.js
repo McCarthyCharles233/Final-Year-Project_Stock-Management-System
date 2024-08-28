@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import login_bg from './img/login_bg.jpg';
-/* import logo from './img/logo.png'; */
+/* import login_bg from './img/login_bg.jpg'; */
 import lock from './img/lock.png';
 import user from './img/user.png';
 
@@ -14,26 +13,31 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    if (role === 'admin' && username === 'admin' && password === 'root') {
-      navigate('/admin/dashboard');
-    } else {
-      try {
-        const response = await axios.post('http://localhost:5000/api/login', {
-          role,
-          username,
-          password,
-        });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/api/login', {
+        role,
+        username,
+        password,
+      });
 
-        if (response.data.token) {
-          localStorage.setItem('token', response.data.token);
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('role', role); // Store role for later use
+
+        if (role === 'admin') {
           navigate('/admin/dashboard');
+        } else if (role === 'pharmacist') {
+          navigate('/pharmacist/dashboard');
         } else {
-          setError('Incorrect credentials');
+          navigate('/unauthorized');
         }
-      } catch (error) {
-        setError('Login failed');
+      } else {
+        setError('Incorrect credentials');
       }
+    } catch (error) {
+      setError('Login failed');
     }
   };
 

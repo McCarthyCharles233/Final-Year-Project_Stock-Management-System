@@ -18,14 +18,18 @@ const AddUserModal = ({ isVisible, onClose, onSubmit, user }) => {
       setPassword('');
       setConfirmPassword('');
     } else {
-      setName('');
-      setRole('Pharmacist');
-      setId('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
+      resetForm();
     }
   }, [user]);
+
+  const resetForm = () => {
+    setName('');
+    setRole('Pharmacist');
+    setId('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+  };
 
   if (!isVisible) return null;
 
@@ -42,8 +46,8 @@ const AddUserModal = ({ isVisible, onClose, onSubmit, user }) => {
     }
 
     const newUser = { name, role, id, email, password };
-    console.log(newUser)
     onSubmit(newUser);
+    resetForm();
   };
 
   const isValidPassword = (password) => {

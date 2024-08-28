@@ -9,8 +9,13 @@ const UserList = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isManageModalOpen, setIsManageModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const role = localStorage.getItem('role');
+    if (role !== 'admin') {
+      navigate('/not-authorized'); // Redirect non-admin users
+    }
     fetchUsers();
   }, []);
 
