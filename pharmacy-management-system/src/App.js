@@ -12,26 +12,51 @@ import MedicineGroup from './Components/MedicineGroup';
 import AppSettings from './Components/AppSettings';
 import UserList from './Components/UserList';
 import Notifications from './Components/Notifications';
-/* import ProtectedRoute from './Components/ProtectedRoute'; */
+import ProtectedRoute from './Components/ProtectedRoute';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/*" element={<MainLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path='Inventory' element={<Inventory />} />
-          <Route path='MedicineList' element={<MedicineList />} />
-          <Route path='reports' element={<Reports />} />
-          <Route path='medicinedetails' element={<MedicineDetails />} />
-          <Route path='addnewitem' element={<AddNewDrug />} />
-          <Route path='medicinegroup' element={<MedicineGroup />} />
-          <Route path='appsettings' element={<AppSettings />}/>
-          <Route path='users' element={<UserList />}/>
-          <Route path='notifications' element={<Notifications />}/>
-        </Route>
+        
+        {/* Public Route */}
         <Route path="/" element={<Login />} />
+        
+        {/* Protected Routes for both Admin and Pharmacist */}
+        <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'pharmacist']}>
+              <MainLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="inventory" element={<Inventory />} />
+          <Route path="medicinelist" element={<MedicineList />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="medicinedetails" element={<MedicineDetails />} />
+          <Route path="addnewitem" element={<AddNewDrug />} />
+          <Route path="medicinegroup" element={<MedicineGroup />} />
+          <Route path="appsettings" element={<AppSettings />} />
+          <Route path="users" element={<UserList />} />
+          <Route path="notifications" element={<Notifications />} />
+        </Route>
+
+        {/* Protected Routes for Admin Only */}
+        <Route
+          path="/admin/restricted/*"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <MainLayout />
+            </ProtectedRoute>
+          }
+        >
+          {/* Admin-specific routes */}
+          <Route path="appsettings" element={<AppSettings />} />
+          <Route path="users" element={<UserList />} />
+        </Route>
       </Routes>
     </Router>
   );

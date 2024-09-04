@@ -1,30 +1,16 @@
-import React, { useState } from 'react';
-import MedicineList from './MedicineList';
-import AddNewDrug from './AddNewDrug';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
-const App = () => {
-  const [medicines, setMedicines] = useState([]);
+const ProtectedRoute = ({ children, allowedRoles }) => {
+  const token = localStorage.getItem('token');
+  const userRole = localStorage.getItem('role');
 
-  const addMedicine = (newMedicine) => {
-    setMedicines([...medicines, newMedicine]);
-  };
-
-  return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={<MedicineList medicines={medicines} />}
-        />
-        <Route
-          path="/admin/addnewitem"
-          element={<AddNewDrug addMedicine={addMedicine} />}
-        />
-        {/* Other routes can be added here */}
-      </Routes>
-    </Router>
-  );
+  // Check if user has a token and the right role
+  if (token && allowedRoles.includes(userRole)) {
+    return children;
+  } else {
+    return <Navigate to="/login" />;
+  }
 };
 
-export default App;
+export default ProtectedRoute;

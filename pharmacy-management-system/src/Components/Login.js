@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-/* import login_bg from './img/login_bg.jpg'; */
+import login_bg from './img/login_bg.jpg';
 import lock from './img/lock.png';
 import user from './img/user.png';
 
@@ -13,40 +12,36 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/login', {
-        role,
-        username,
-        password,
-      });
+  const handleLogin = (e) => {
+    e.preventDefault(); // Prevent form submission and page reload
 
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('role', role); // Store role for later use
+    // Hardcoded admin login
+    if (role === 'admin' && username === 'admin' && password === 'root') {
+      localStorage.setItem('role', 'admin'); // Save the admin role in localStorage
+      localStorage.setItem('token', 'dummy_token'); // Set a dummy token for admin login
+      navigate('/admin/dashboard');
+    } else {
+      // Retrieve users from localStorage
+      const users = JSON.parse(localStorage.getItem('users')) || [];
 
-        if (role === 'admin') {
-          navigate('/admin/dashboard');
-        } else if (role === 'pharmacist') {
-          navigate('/pharmacist/dashboard');
-        } else {
-          navigate('/unauthorized');
-        }
+      // Find user matching credentials
+      const userFound = users.find(
+        (user) => user.id === username && user.password === password
+      );
+
+      if (userFound && role === userFound.role) {
+        localStorage.setItem('role', userFound.role); // Save user role in localStorage
+        localStorage.setItem('token', 'dummy_token'); // Set a token for authentication
+        navigate(`/${role}/dashboard`);
       } else {
-        setError('Incorrect credentials');
+        setError('Incorrect credentials or role mismatch');
       }
-    } catch (error) {
-      setError('Login failed');
     }
   };
 
   return (
     <div style={{ backgroundImage: `url(${login_bg})` }} className="flex justify-center items-center min-h-screen">
       <div className="p-10">
-        {/* <div className="flex justify-center mb-6">
-          <img src={logo} alt="Logo" className="w-24 h-24" />
-        </div> */}
         <form onSubmit={handleLogin} className="space-y-4">
           <div style={{ width: '300px' }} className="relative">
             <img src={user} alt="User Icon" className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />

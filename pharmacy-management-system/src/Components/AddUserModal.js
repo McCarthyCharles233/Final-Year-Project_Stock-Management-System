@@ -34,21 +34,27 @@ const AddUserModal = ({ isVisible, onClose, onSubmit, user }) => {
   if (!isVisible) return null;
 
   const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setPasswordError('Passwords do not match');
-      return;
-    }
-
-    if (!isValidPassword(password)) {
-      setPasswordError('Password must be at least 8 characters long and contain a number and a special character.');
-      return;
-    }
-
-    const newUser = { name, role, id, email, password };
-    onSubmit(newUser);
-    resetForm();
-  };
+      e.preventDefault();
+      if (password !== confirmPassword) {
+        setPasswordError('Passwords do not match');
+        return;
+      }
+    
+      if (!isValidPassword(password)) {
+        setPasswordError('Password must be at least 8 characters long and contain a number and a special character.');
+        return;
+      }
+    
+      const newUser = { name, role, id, email, password };
+    
+      // Save user credentials locally
+      const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+      existingUsers.push(newUser);
+      localStorage.setItem('users', JSON.stringify(existingUsers));
+    
+      onSubmit(newUser);
+    };
+    
 
   const isValidPassword = (password) => {
     const regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;

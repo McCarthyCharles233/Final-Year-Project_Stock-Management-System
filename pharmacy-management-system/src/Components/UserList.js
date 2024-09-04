@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaPlus, FaSearch } from 'react-icons/fa';
 import AddUserModal from './AddUserModal';
 import ManageUserModal from './ManageUserModal';
@@ -12,12 +13,14 @@ const UserList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const role = localStorage.getItem('role');
-    if (role !== 'admin') {
+    const storedRole = localStorage.getItem('role');
+    
+    if (storedRole !== 'admin') {
       navigate('/not-authorized'); // Redirect non-admin users
+    } else {
+      fetchUsers(); // Only fetch users if the role is 'admin'
     }
-    fetchUsers();
-  }, []);
+  }, []);  
 
   const fetchUsers = async () => {
     try {
