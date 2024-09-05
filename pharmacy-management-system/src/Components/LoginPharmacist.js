@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
 import login_bg from './img/login_bg.jpg';
 import lock from './img/lock.png';
 import user from './img/user.png';
 
-const Login = () => {
+const LoginPharmacist = () => {
   const [role, setRole] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -14,29 +13,17 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    e.preventDefault(); // Prevent form submission and page reload
+    e.preventDefault();
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    // Match the username with the user ID stored in localStorage
+    const userFound = users.find(user => user.id === username && user.password === password);
 
-    // Hardcoded admin login
-    if (role === 'admin' && username === 'admin' && password === 'root') {
-      localStorage.setItem('role', 'admin'); // Save the admin role in localStorage
-      localStorage.setItem('token', 'dummy_token'); // Set a dummy token for admin login
-      navigate('/admin/dashboard');
+    if (userFound && role === 'pharmacist' && userFound.role === 'pharmacist') {
+      localStorage.setItem('role', 'pharmacist'); // Save pharmacist role in localStorage
+      localStorage.setItem('token', 'dummy_token'); // Set a token for authentication
+      navigate(`/pharmacist/dashboard`);
     } else {
-      // Retrieve users from localStorage
-      const users = JSON.parse(localStorage.getItem('users')) || [];
-
-      // Find user matching credentials
-      const userFound = users.find(
-        (user) => user.id === username && user.password === password
-      );
-
-      if (userFound && role === userFound.role) {
-        localStorage.setItem('role', userFound.role); // Save user role in localStorage
-        localStorage.setItem('token', 'dummy_token'); // Set a token for authentication
-        navigate(`/${role}/dashboard`);
-      } else {
-        setError('Incorrect credentials or role mismatch');
-      }
+      setError('Incorrect credentials');
     }
   };
 
@@ -53,7 +40,7 @@ const Login = () => {
               className="block w-full pl-10 pr-3 py-2 border border-white rounded-md shadow-sm focus:ring-white focus:border-white sm:text-sm text-white placeholder-white bg-transparent"
             >
               <option value="" disabled className="text-gray-700 uppercase">ROLE</option>
-              <option value="admin" className="text-black">Admin</option>
+              <option value="pharmacist" className="text-black">Pharmacist</option>
             </select>
           </div>
           <div style={{ width: '300px' }} className="relative">
@@ -63,7 +50,7 @@ const Login = () => {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="USERNAME"
+              placeholder="USERNAME (ID)"
               className="block w-full pl-10 pr-3 py-2 border border-white rounded-md shadow-sm focus:ring-white focus:border-white sm:text-sm text-white placeholder-white bg-transparent"
             />
           </div>
@@ -83,15 +70,10 @@ const Login = () => {
         {error && <p className="mt-4 text-red-500">{error}</p>}
         <div className="mt-4 text-end">
           <a href="#" className="text-sm text-white">Forgot password?</a>
-          <div>
-            <NavLink to='/pharmacist-login'>
-                <a href="#" className="text-sm text-white">Log in as Pharmacist</a> 
-            </NavLink>
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default LoginPharmacist;

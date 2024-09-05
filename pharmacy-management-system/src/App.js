@@ -13,12 +13,14 @@ import AppSettings from './Components/AppSettings';
 import UserList from './Components/UserList';
 import Notifications from './Components/Notifications';
 import ProtectedRoute from './Components/ProtectedRoute';
+import LoginPharmacist from './Components/LoginPharmacist';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path='pharmacist-login' element={<LoginPharmacist />} />
         
         {/* Public Route */}
         <Route path="/" element={<Login />} />
