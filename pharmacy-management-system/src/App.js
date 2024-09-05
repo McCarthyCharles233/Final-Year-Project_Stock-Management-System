@@ -14,6 +14,8 @@ import UserList from './Components/UserList';
 import Notifications from './Components/Notifications';
 import ProtectedRoute from './Components/ProtectedRoute';
 import LoginPharmacist from './Components/LoginPharmacist';
+import DashboardPharmacist from './Components/DashboardPharmacist';
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
         
         {/* Public Route */}
         <Route path="/" element={<Login />} />
+        <Route path="/pharmacist" element={<DashboardPharmacist />}></Route>
         
         {/* Protected Routes for both Admin and Pharmacist */}
         <Route
